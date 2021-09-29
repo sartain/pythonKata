@@ -22,24 +22,33 @@ class Minesweeper:
                 if square == "*":
                     output += "*"
                 else:
-                    if rowIndex < len(row) -1 and row[rowIndex+1] == "*":
-                        surroundingMines += 1
-                    if rowIndex > 0 and row[rowIndex-1] == "*":
-                        surroundingMines += 1
-                    if colIndex < len(grid) -1:
-                        if grid[colIndex + 1][rowIndex] == "*":
-                            surroundingMines += 1
-                        if rowIndex < len(row) -1 and grid[colIndex+1][rowIndex+1] == "*":
-                            surroundingMines += 1
-                        if rowIndex > 0 and grid[colIndex+1][rowIndex-1] == "*":
-                            surroundingMines += 1
-                    if colIndex > 0 and grid[colIndex][rowIndex] == "*":
-                        if grid[colIndex - 1][rowIndex] == "*":
-                            surroundingMines += 1
-                        if rowIndex < len(row) -1 and grid[colIndex-1][rowIndex+1] == "*":
-                            surroundingMines += 1
-                        if rowIndex > 0 and grid[colIndex-1][rowIndex-1] == "*":
-                            surroundingMines += 1
+                    surroundingMines = self.getSurroundingMines(colIndex, rowIndex, grid, row)
                     output += str(surroundingMines)
         return output
+
+    def getSurroundingMines(self, colIndex, rowIndex, grid, row):
+        surroundingMines = 0
+        if rowIndex < len(row) - 1:
+            surroundingMines += self.getLeftRightMines(rowIndex+1, colIndex, grid)
+            if colIndex > 0:
+                surroundingMines += self.getLeftRightMines(rowIndex+1, colIndex-1, grid)
+            if colIndex < len(grid) - 1:
+                surroundingMines += self.getLeftRightMines(rowIndex+1, colIndex+1, grid)
+        if rowIndex > 0:
+            surroundingMines += self.getLeftRightMines(rowIndex-1, colIndex, grid)
+            if colIndex > 0:
+                surroundingMines += self.getLeftRightMines(rowIndex-1, colIndex-1, grid)
+            if colIndex < len(grid) - 1:
+                surroundingMines += self.getLeftRightMines(rowIndex-1, colIndex+1, grid)
+        if colIndex > 0:
+            surroundingMines += self.getLeftRightMines(rowIndex, colIndex - 1, grid)
+        if colIndex < len(grid) -1:
+            surroundingMines += self.getLeftRightMines(rowIndex, colIndex + 1, grid)
+        return surroundingMines
+
+    def getLeftRightMines(self, rowIndex, colIndex, grid):
+        surroundingMines = 0
+        if grid[colIndex][rowIndex] == "*":
+            surroundingMines += 1
+        return surroundingMines
         
