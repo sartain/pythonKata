@@ -11,4 +11,7 @@ class MinesweeperTest(unittest.TestCase):
 
     def testSurroundingMines(self):
         self.assertEquals("01*10", Minesweeper().convertRowToOutput("..*.."))
+
+    def testTwoMinesSurrounding(self):
+        self.assertEquals("*2*", Minesweeper().convertRowToOutput("*.*"))
 unittest.main()

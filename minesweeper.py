@@ -14,12 +14,15 @@ class Minesweeper:
     def convertRowToOutput(self, row):
         output = ""
         for index, square in enumerate(row):
+            #Check behind
+            #Check ahead
+            surroundingMines = 0
             if square == "*":
                 output += "*"
-            elif index < len(row) -1 and row[index+1] == "*":
-                output += "1"
-            elif index > 0 and row[index-1] == "*":
-                output += "1"
             else:
-                output += "0"
+                if index < len(row) -1 and row[index+1] == "*":
+                    surroundingMines += 1
+                if index > 0 and row[index-1] == "*":
+                    surroundingMines += 1
+                output += str(surroundingMines)
         return output
