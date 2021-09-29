@@ -9,4 +9,6 @@ class MinesweeperTest(unittest.TestCase):
     def testNumberOfMines(self):
         self.assertEquals(2, Minesweeper().getMines(self.fourByFourGame))
 
+    def testSurroundingMines(self):
+        self.assertEquals("01*10", Minesweeper().convertRowToOutput("..*.."))
 unittest.main()
