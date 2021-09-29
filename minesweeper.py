@@ -30,20 +30,22 @@ class Minesweeper:
         surroundingMines = 0
         if rowIndex < len(row) - 1:
             surroundingMines += self.getLeftRightMines(rowIndex+1, colIndex, grid)
-            if colIndex > 0:
-                surroundingMines += self.getLeftRightMines(rowIndex+1, colIndex-1, grid)
-            if colIndex < len(grid) - 1:
-                surroundingMines += self.getLeftRightMines(rowIndex+1, colIndex+1, grid)
+            surroundingMines += self.getAboveAndBelowMines(rowIndex+1, colIndex, grid)
         if rowIndex > 0:
             surroundingMines += self.getLeftRightMines(rowIndex-1, colIndex, grid)
-            if colIndex > 0:
-                surroundingMines += self.getLeftRightMines(rowIndex-1, colIndex-1, grid)
-            if colIndex < len(grid) - 1:
-                surroundingMines += self.getLeftRightMines(rowIndex-1, colIndex+1, grid)
+            surroundingMines += self.getAboveAndBelowMines(rowIndex-1, colIndex, grid)
         if colIndex > 0:
             surroundingMines += self.getLeftRightMines(rowIndex, colIndex - 1, grid)
         if colIndex < len(grid) -1:
             surroundingMines += self.getLeftRightMines(rowIndex, colIndex + 1, grid)
+        return surroundingMines
+
+    def getAboveAndBelowMines(self, rowIndex, colIndex, grid):
+        surroundingMines = 0
+        if colIndex > 0:
+            surroundingMines += self.getLeftRightMines(rowIndex, colIndex-1, grid)
+        if colIndex < len(grid) - 1:
+            surroundingMines += self.getLeftRightMines(rowIndex, colIndex+1, grid)
         return surroundingMines
 
     def getLeftRightMines(self, rowIndex, colIndex, grid):
